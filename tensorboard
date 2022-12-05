@@ -1,0 +1,8 @@
+determine local external IP by entering (including ending dash):
+wget http://ipinfo.io/ip -qO -
+
+
+### Setting up access to Tensorboard on Server from local machine
+https://stackoverflow.com/questions/37987839/how-can-i-run-tensorboard-on-a-remote-server
+
+

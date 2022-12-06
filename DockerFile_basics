@@ -1,1 +1,31 @@
+FROM nvidia/cuda:11.4.0-cudnn8-devel-ubuntu20.04
+
+MAINTAINER Sumved Ravi
+
+# Install base utilities
+# running `apt-get clean` clears the local repository of retrieved package fiels that are left in /var/cache
+# more specifically the directories it cleans out are /var/cache/apt/archives and /var/cache/apt/archives/partial
+# it leaves only the the lock file and partial subdirectory in /var/cache/apt/archives
+# when running sudo `apt-get update` a list of packages will get downloaded and stored under /var/lib/apt/lists/
+# these files can be safely removed for more information check: https://askubuntu.com/questions/179955/var-lib-apt-lists-is-huge
+# one point to note rm -rf the '-f' option dictates 'rm' to never prompt and to ignore missing files its asked to delete
+# for more information on this point read: https://unix.stackexchange.com/questions/360181/what-is-difference-between-results-and-effectiveness-after-adding-f-in-rm-and 
+RUN apt-get update && \
+    apt-get install -y build-essential && \
+    apt-get install -y wget && \
+    apt-get clean && \					
+    rm -rf /var/lib/apt/lists/*
+
+# Install miniconda
+# setting the conda directory to be under /opt as that directory typically holds non OS related packages
+# the miniconda installer is output to ~/miniconda.sh and installed after which the installer is deleted
+# to understand the options -b and -p checkout: https://docs.anaconda.com/anaconda/install/silent-mode/
+ENV CONDA_DIR /opt/conda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh
+
+# Put conda in path so we can use conda activate
+ENV PATH=$CONDA_DIR/bin:$PATH
+
 

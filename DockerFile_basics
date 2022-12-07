@@ -20,6 +20,8 @@ RUN apt-get update && \
 # setting the conda directory to be under /opt as that directory typically holds non OS related packages
 # the miniconda installer is output to ~/miniconda.sh and installed after which the installer is deleted
 # to understand the options -b and -p checkout: https://docs.anaconda.com/anaconda/install/silent-mode/
+# the -b option is for Batch mode, which doesn't modify PATH modifications to ~/.bashrc and doesn't edit .bashrc or .bash_profile
+# the -p option sets the installation prefix/path (assumes the full path does not currently exist)
 ENV CONDA_DIR /opt/conda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \

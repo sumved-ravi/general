@@ -1,0 +1,10 @@
+Run the following in the new docker container
+1. conda init
+
+Restart the container then run the following replacing 'test' with the name of the new environment.
+Remove the requirements for python version for default python version.
+2. conda create --name test python=3.9
+
+Alternately, reproduce a conda environment using the following. 
+3. conda env create -f environment.yml
+
